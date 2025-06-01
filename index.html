@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fetch Student Data</title>
+</head>
+<body>
+  <h2>Enter Registration Number</h2>
+  <input type="text" id="regNumber" placeholder="Enter Registration Number">
+  <button onclick="fetchData()">Submit</button>
+
+  <h3>Student Details</h3>
+  <pre id="result"></pre>
+
+  <script>
+    function fetchData() {
+      var regNumber = document.getElementById("regNumber").value;
+      fetch("YOUR_WEB_APP_URL", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: "regNumber=" + encodeURIComponent(regNumber)
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById("result").textContent = "Error: " + error;
+      });
+    }
+  </script>
+</body>
+</html>
